@@ -8,7 +8,7 @@
 
 #import "ClockViewController.h"
 
-@interface ClockViewController ()
+@interface ClockViewController () <StopwatchDelegate>
 
 @property (nonatomic) ALView *timeContainer;
 @property (nonatomic) UILabel *stopwatchLabel;
@@ -17,6 +17,7 @@
 @property (nonatomic) BOOL didSetupStopwatchLabelConstraints;
 
 @property (nonatomic) Stopwatch *stopwatch;
+@property (nonatomic) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -90,17 +91,30 @@
     
 }
 
--(void) updateStopwatchLabel {
+
+-(void) setupDateFormatter { //may not need, consider deleting
     
-    
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"HH:mm:ss"];
 }
+
 
 #pragma mark - stopwatch
 
 -(void) createStopwatch {
     
     self.stopwatch = [[Stopwatch alloc] init];
+    self.stopwatch.delegate = self;
     
+}
+
+-(void)updateTime {
+    self.stopwatchLabel.text = [NSString stringWithFormat:@"%ld:%ld:%ld",
+                                self.stopwatch.hoursElapsed,
+                                self.stopwatch.minutesElapsed,
+                                self.stopwatch.secondsElapsed];
+    
+//    NSLog(@"hours: %f\n minutes: %f\n seconds: %f\n", self.stopwatch.hoursElapsed, self.stopwatch.minutesElapsed, self.stopwatch.secondsElapsed);
 }
 
 

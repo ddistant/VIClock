@@ -30,8 +30,10 @@
 -(void) fireTimer {
     
     if (self.timerDoesExist) {
-        NSLog(@"time is: %ld", [self getClockTime]);
-        NSLog(@"time elapsed is:%f", self.secondsElapsed);
+//        NSLog(@"time is: %ld", [self getClockTime]);
+//        NSLog(@"seconds elapsed is:%f", self.secondsElapsed);
+        
+        [self.delegate updateTime];
     }
 }
 
@@ -65,20 +67,22 @@
     return value / timescale;
 }
 
--(NSTimeInterval)secondsElapsed {
+-(NSInteger)secondsElapsed {
     
     NSDate *now = [NSDate date];
     NSTimeInterval seconds = [now timeIntervalSinceDate:self.startTime];
     
-    return seconds;
+    NSInteger intSeconds = floor(seconds);
+    
+    return intSeconds;
 }
 
--(NSTimeInterval)minutesElapsed {
-    return floor(self.secondsElapsed / 60);
+-(NSInteger)minutesElapsed {
+    return self.secondsElapsed / 60;
 }
 
--(NSTimeInterval)hoursElapsed {
-    return floor(self.minutesElapsed / 60);
+-(NSInteger)hoursElapsed {
+    return self.minutesElapsed / 60;
 }
 
 @end
