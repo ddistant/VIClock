@@ -25,7 +25,6 @@
     self.window.rootViewController = self.clockViewController;
     [self.window makeKeyAndVisible];
     
-    
     return YES;
 }
 

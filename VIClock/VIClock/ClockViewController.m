@@ -16,6 +16,8 @@
 @property (nonatomic) BOOL didSetupTimeContainerConstraints;
 @property (nonatomic) BOOL didSetupStopwatchLabelConstraints;
 
+@property (nonatomic) Stopwatch *stopwatch;
+
 @end
 
 @implementation ClockViewController
@@ -24,6 +26,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor lightGrayColor];
+    [self createStopwatch];
     [self createTimeContainer];
     [self createStopwatchLabel];
     
@@ -33,6 +36,8 @@
     
     [self setupTimeContainerConstraints];
     [self setupStopwatchLabelConstraints];
+    [self.stopwatch startTimer];
+    
 }
 
 #pragma mark - timeContainer
@@ -57,7 +62,7 @@
     }
 }
 
-#pragma mark - timeLabel
+#pragma mark - stopwatchLabel
 
 -(void) createStopwatchLabel {
     
@@ -85,20 +90,24 @@
     
 }
 
+-(void) updateStopwatchLabel {
+    
+    
+}
+
+#pragma mark - stopwatch
+
+-(void) createStopwatch {
+    
+    self.stopwatch = [[Stopwatch alloc] init];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

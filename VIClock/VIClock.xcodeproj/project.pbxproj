@@ -15,6 +15,8 @@
 		22A7352D1CCAF4BD00DA36E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22A7352B1CCAF4BD00DA36E5 /* LaunchScreen.storyboard */; };
 		22A735381CCAF4BD00DA36E5 /* VIClockTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A735371CCAF4BD00DA36E5 /* VIClockTests.m */; };
 		22A735441CCAF89000DA36E5 /* ClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A735431CCAF89000DA36E5 /* ClockViewController.m */; };
+		22A735471CCB123D00DA36E5 /* Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A735461CCB123D00DA36E5 /* Stopwatch.m */; };
+		22A735491CCC647A00DA36E5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A735481CCC647A00DA36E5 /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,9 @@
 		22A735391CCAF4BD00DA36E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22A735421CCAF89000DA36E5 /* ClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockViewController.h; sourceTree = "<group>"; };
 		22A735431CCAF89000DA36E5 /* ClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockViewController.m; sourceTree = "<group>"; };
+		22A735451CCB123D00DA36E5 /* Stopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stopwatch.h; sourceTree = "<group>"; };
+		22A735461CCB123D00DA36E5 /* Stopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stopwatch.m; sourceTree = "<group>"; };
+		22A735481CCC647A00DA36E5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		8E21B344D7C72288A985CFBE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FFA479A418F8E370949D8EA2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22A735491CCC647A00DA36E5 /* CoreMedia.framework in Frameworks */,
 				0CD117D34E371505F88B9A27 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +96,8 @@
 			children = (
 				22A735201CCAF4BD00DA36E5 /* AppDelegate.h */,
 				22A735211CCAF4BD00DA36E5 /* AppDelegate.m */,
+				22A735451CCB123D00DA36E5 /* Stopwatch.h */,
+				22A735461CCB123D00DA36E5 /* Stopwatch.m */,
 				22A735421CCAF89000DA36E5 /* ClockViewController.h */,
 				22A735431CCAF89000DA36E5 /* ClockViewController.m */,
 				22A735261CCAF4BD00DA36E5 /* Main.storyboard */,
@@ -130,6 +138,7 @@
 		4C7C477E327E76A0683C57C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22A735481CCC647A00DA36E5 /* CoreMedia.framework */,
 				FFA479A418F8E370949D8EA2 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -273,6 +282,7 @@
 				22A735441CCAF89000DA36E5 /* ClockViewController.m in Sources */,
 				22A735221CCAF4BD00DA36E5 /* AppDelegate.m in Sources */,
 				22A7351F1CCAF4BD00DA36E5 /* main.m in Sources */,
+				22A735471CCB123D00DA36E5 /* Stopwatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
