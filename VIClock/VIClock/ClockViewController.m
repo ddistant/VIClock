@@ -17,7 +17,7 @@
 @property (nonatomic) BOOL didSetupStopwatchLabelConstraints;
 
 @property (nonatomic) Stopwatch *stopwatch;
-@property (nonatomic) NSDateFormatter *dateFormatter;
+
 
 @end
 
@@ -69,7 +69,7 @@
     
     self.stopwatchLabel = [[UILabel alloc] init];
     self.stopwatchLabel.backgroundColor = [UIColor blackColor];
-    self.stopwatchLabel.text = @"00:00:00";
+//    self.stopwatchLabel.text = @"00:00:00";
     [self.stopwatchLabel setFont:[UIFont fontWithName:@"Arial" size:23.0]];
     self.stopwatchLabel.textAlignment = NSTextAlignmentCenter;
     self.stopwatchLabel.textColor = [UIColor whiteColor];
@@ -91,15 +91,7 @@
     
 }
 
-
--(void) setupDateFormatter { //may not need, consider deleting
-    
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateFormat:@"HH:mm:ss"];
-}
-
-
-#pragma mark - stopwatch
+#pragma mark - timer
 
 -(void) createStopwatch {
     
@@ -108,13 +100,9 @@
     
 }
 
--(void)updateTime {
-    self.stopwatchLabel.text = [NSString stringWithFormat:@"%ld:%ld:%ld",
-                                self.stopwatch.hoursElapsed,
-                                self.stopwatch.minutesElapsed,
-                                self.stopwatch.secondsElapsed];
+-(void)updateTimeWithHours:(NSString *)hours minutes:(NSString *)minutes seconds:(NSString *)seconds {
     
-//    NSLog(@"hours: %f\n minutes: %f\n seconds: %f\n", self.stopwatch.hoursElapsed, self.stopwatch.minutesElapsed, self.stopwatch.secondsElapsed);
+    self.stopwatchLabel.text = [NSString stringWithFormat:@"%@:%@:%@", hours, minutes, seconds];
 }
 
 

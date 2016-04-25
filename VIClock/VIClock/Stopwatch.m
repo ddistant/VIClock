@@ -23,17 +23,15 @@
     }
     
     [self recordStartTime];
-    [self getHostClock];
+    [self setupDateFormatter];
 
 }
 
 -(void) fireTimer {
     
     if (self.timerDoesExist) {
-//        NSLog(@"time is: %ld", [self getClockTime]);
-//        NSLog(@"seconds elapsed is:%f", self.secondsElapsed);
         
-        [self.delegate updateTime];
+        [self getHoursMinutesSeconds];
     }
 }
 
@@ -52,37 +50,41 @@
 
 }
 
-#pragma mark - host clock
+#pragma mark - date formatter
 
--(void) getHostClock {
+-(void) setupDateFormatter {
     
-    self.clock = CMClockGetHostTimeClock();
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"HH:mm:ss"];
 }
 
--(long) getClockTime {
+-(void) getHoursMinutesSeconds {
     
-    NSInteger timescale = CMClockGetTime(self.clock).timescale;
-    NSInteger value = CMClockGetTime(self.clock).value;
-    
-    return value / timescale;
-}
-
--(NSInteger)secondsElapsed {
+    //get date, convert to string without colons
     
     NSDate *now = [NSDate date];
-    NSTimeInterval seconds = [now timeIntervalSinceDate:self.startTime];
+    NSString *dateString = [self.dateFormatter stringFromDate:now];
+    NSString *dateStringCleaned = [dateString stringByReplacingOccurrencesOfString:@":" withString:@""];
     
-    NSInteger intSeconds = floor(seconds);
+    //convert string to array of strings
     
-    return intSeconds;
+    NSMutableArray *dateArray = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < dateStringCleaned.length; i++) {
+        [dateArray addObject:[NSString stringWithFormat:@"%C", [dateStringCleaned characterAtIndex:i]]];
+    }
+    
+    //get seconds, minutes and hours from array
+    
+    NSString *hours = [NSString stringWithFormat:@"%@%@", dateArray[0], dateArray[1]];
+    NSString *minutes = [NSString stringWithFormat:@"%@%@", dateArray[2], dateArray[3]];
+    NSString *seconds = [NSString stringWithFormat:@"%@%@", dateArray[4], dateArray[5]];
+    
+    //pass to delegate
+    
+    [self.delegate updateTimeWithHours:hours minutes:minutes seconds:seconds];
 }
 
--(NSInteger)minutesElapsed {
-    return self.secondsElapsed / 60;
-}
 
--(NSInteger)hoursElapsed {
-    return self.minutesElapsed / 60;
-}
 
 @end

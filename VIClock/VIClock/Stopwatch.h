@@ -11,20 +11,16 @@
 
 @protocol StopwatchDelegate <NSObject>
 
--(void) updateTime;
+-(void) updateTimeWithHours:(NSString *)hours minutes:(NSString *)minutes seconds:(NSString *)seconds;
 
 @end
 
 @interface Stopwatch : NSObject
 
-@property (nonatomic) NSInteger secondsElapsed;
-@property (nonatomic) NSInteger minutesElapsed;
-@property (nonatomic) NSInteger hoursElapsed;
 @property (nonatomic) NSDate *startTime;
-
 @property (nonatomic) NSTimer *timer;
 @property (nonatomic) BOOL timerDoesExist;
-@property (nonatomic) struct OpaqueCMClock *clock;
+@property (nonatomic) NSDateFormatter *dateFormatter;
 
 @property (nonatomic) id<StopwatchDelegate>delegate;
 
