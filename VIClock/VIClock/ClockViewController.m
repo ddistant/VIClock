@@ -8,7 +8,6 @@
 
 #import "ClockViewController.h"
 
-
 #define DEGREES_TO_RADIANS(degrees)  ((M_PI * degrees)/ 180)
 
 @interface ClockViewController () <StopwatchDelegate>
@@ -29,16 +28,56 @@
     
     self.view.backgroundColor = [UIColor lightGrayColor];
     [self createStopwatch];
-//    [self createStopwatchLabel];
     [self createClockView];
+    [self createStopwatchLabel];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     
-//    [self setupStopwatchLabelConstraints];
+    [self setupStopwatchLabelConstraints];
     [self.stopwatch startTimer];
     
+}
+
+#pragma mark - stopwatch
+
+-(void) createStopwatch {
+    
+    self.stopwatch = [[Stopwatch alloc] init];
+    self.stopwatch.delegate = self;
+    
+}
+
+-(void)updateTimeWithHours:(NSString *)hours minutes:(NSString *)minutes seconds:(NSString *)seconds {
+    
+    //update stopwatchLabel
+    
+    self.stopwatchLabel.text = [NSString stringWithFormat:@"%@:%@:%@", hours, minutes, seconds];
+    
+    //strings to ints
+    
+    NSInteger hoursInt = [hours integerValue];
+    NSInteger minutesInt = [minutes integerValue];
+    NSInteger secondsInt = [seconds integerValue];
+    
+    //convert hours from military time
+    
+    if (hoursInt > 12) {
+        hoursInt = hoursInt - 12;
+    }
+    
+    //get angles
+    
+    double secondsAngle = GLKMathDegreesToRadians(secondsInt * 6);
+    double minutesAngle = GLKMathDegreesToRadians(minutesInt * 6 + 90);
+    double hoursAngle = GLKMathDegreesToRadians(hoursInt * 30 - 90);
+    
+    //update clockView
+    
+    self.clockView.secondHandLayer.affineTransform = CGAffineTransformMakeRotation(secondsAngle);
+    self.clockView.minuteHandLayer.affineTransform = CGAffineTransformMakeRotation(minutesAngle);
+    self.clockView.hourHandLayer.affineTransform = CGAffineTransformMakeRotation(hoursAngle);
 }
 
 #pragma mark - stopwatchLabel
@@ -47,7 +86,6 @@
     
     self.stopwatchLabel = [[UILabel alloc] init];
     self.stopwatchLabel.backgroundColor = [UIColor blackColor];
-//    self.stopwatchLabel.text = @"00:00:00";
     [self.stopwatchLabel setFont:[UIFont fontWithName:@"Arial" size:23.0]];
     self.stopwatchLabel.textAlignment = NSTextAlignmentCenter;
     self.stopwatchLabel.textColor = [UIColor whiteColor];
@@ -60,8 +98,10 @@
     if (!self.didSetupStopwatchLabelConstraints) {
         
         [NSLayoutConstraint autoCreateAndInstallConstraints:^{
-            [self.stopwatchLabel autoCenterInSuperview];
             [self.stopwatchLabel autoSetDimensionsToSize:CGSizeMake(100, 75)];
+            [self.stopwatchLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
+            [self.stopwatchLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.clockView withOffset:20];
+            
         }];
         
         self.didSetupStopwatchLabelConstraints = YES;
@@ -160,48 +200,6 @@
     tenElevenLayer.strokeEnd = 1.0;
     
     [self.view.layer addSublayer:tenElevenLayer];
-}
-
-#pragma mark - stopwatch
-
--(void) createStopwatch {
-    
-    self.stopwatch = [[Stopwatch alloc] init];
-    self.stopwatch.delegate = self;
-    
-}
-
--(void)updateTimeWithHours:(NSString *)hours minutes:(NSString *)minutes seconds:(NSString *)seconds {
-    
-    //update stopwatchLabel
-    
-    self.stopwatchLabel.text = [NSString stringWithFormat:@"%@:%@:%@", hours, minutes, seconds];
-    
-    NSLog(@"%@:%@:%@", hours, minutes, seconds);
-    
-    //strings to ints
-    
-    NSInteger hoursInt = [hours integerValue];
-    NSInteger minutesInt = [minutes integerValue];
-    NSInteger secondsInt = [seconds integerValue];
-    
-    //convert hours from military time
-    
-    if (hoursInt > 12) {
-        hoursInt = hoursInt - 12;
-    }
-    
-    //get angles
-    
-    double secondsAngle = GLKMathDegreesToRadians(secondsInt * 6);
-    double minutesAngle = GLKMathDegreesToRadians(minutesInt * 6 + 90);
-    double hoursAngle = GLKMathDegreesToRadians(hoursInt * 30 - 90);
-    
-    //update clockView
-    
-    self.clockView.secondHandLayer.affineTransform = CGAffineTransformMakeRotation(secondsAngle);
-    self.clockView.minuteHandLayer.affineTransform = CGAffineTransformMakeRotation(minutesAngle);
-    self.clockView.hourHandLayer.affineTransform = CGAffineTransformMakeRotation(hoursAngle);
 }
 
 

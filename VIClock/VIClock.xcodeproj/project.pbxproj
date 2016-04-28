@@ -16,9 +16,7 @@
 		22A735381CCAF4BD00DA36E5 /* VIClockTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A735371CCAF4BD00DA36E5 /* VIClockTests.m */; };
 		22A735441CCAF89000DA36E5 /* ClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A735431CCAF89000DA36E5 /* ClockViewController.m */; };
 		22A735471CCB123D00DA36E5 /* Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A735461CCB123D00DA36E5 /* Stopwatch.m */; };
-		22A735491CCC647A00DA36E5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A735481CCC647A00DA36E5 /* CoreMedia.framework */; };
 		22A7354C1CCDB9E200DA36E5 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A7354B1CCDB9E200DA36E5 /* ClockView.m */; };
-		22A735501CD1636C00DA36E5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A7354F1CD1636C00DA36E5 /* QuartzCore.framework */; };
 		22A735521CD25C4300DA36E5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A735511CD25C4300DA36E5 /* GLKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,8 +62,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A735521CD25C4300DA36E5 /* GLKit.framework in Frameworks */,
-				22A735501CD1636C00DA36E5 /* QuartzCore.framework in Frameworks */,
-				22A735491CCC647A00DA36E5 /* CoreMedia.framework in Frameworks */,
 				0CD117D34E371505F88B9A27 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

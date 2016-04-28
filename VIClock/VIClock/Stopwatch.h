@@ -16,9 +16,9 @@
 
 @interface Stopwatch : NSObject
 
-@property (nonatomic) NSDate *startTime;
 @property (nonatomic) NSTimer *timer;
 @property (nonatomic) BOOL timerDoesExist;
+
 @property (nonatomic) NSDateFormatter *dateFormatter;
 
 @property (nonatomic) id<StopwatchDelegate>delegate;

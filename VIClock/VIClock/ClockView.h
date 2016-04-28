@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <PureLayout/PureLayout.h>
-#import <QuartzCore/QuartzCore.h>
 
 @interface ClockView : UIView
 

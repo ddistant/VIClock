@@ -22,7 +22,6 @@
         self.timerDoesExist = YES;
     }
     
-    [self recordStartTime];
     [self setupDateFormatter];
 
 }
@@ -42,12 +41,6 @@
         
         self.timerDoesExist = NO;
     }
-}
-
--(void) recordStartTime {
-    
-    self.startTime = [NSDate date];
-
 }
 
 #pragma mark - date formatter
