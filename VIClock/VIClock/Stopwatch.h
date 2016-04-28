@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreMedia/CoreMedia.h>
 
 @protocol StopwatchDelegate <NSObject>
 

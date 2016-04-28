@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <PureLayout/PureLayout.h>
-#import <CoreMedia/CoreMedia.h>
 #import "Stopwatch.h"
+#import "ClockView.h"
 
 @interface ClockViewController : UIViewController
 

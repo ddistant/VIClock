@@ -8,15 +8,15 @@
 
 #import "ClockViewController.h"
 
+#define DEGREES_TO_RADIANS(degrees)  ((M_PI * degrees)/ 180)
+
 @interface ClockViewController () <StopwatchDelegate>
 
-@property (nonatomic) ALView *timeContainer;
 @property (nonatomic) UILabel *stopwatchLabel;
-
-@property (nonatomic) BOOL didSetupTimeContainerConstraints;
 @property (nonatomic) BOOL didSetupStopwatchLabelConstraints;
 
-@property (nonatomic) Stopwatch *stopwatch;
+@property (nonatomic) Stopwatch *stopwatch; //keeps time
+@property (nonatomic) ClockView *clockView; //handles the UI
 
 
 @end
@@ -28,44 +28,21 @@
     
     self.view.backgroundColor = [UIColor lightGrayColor];
     [self createStopwatch];
-    [self createTimeContainer];
-    [self createStopwatchLabel];
+//    [self createStopwatchLabel];
+    [self createClockView];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    [self setupTimeContainerConstraints];
-    [self setupStopwatchLabelConstraints];
+//    [self setupStopwatchLabelConstraints];
     [self.stopwatch startTimer];
     
 }
 
-#pragma mark - timeContainer
-
--(void) createTimeContainer {
-    
-    self.timeContainer = [ALView newAutoLayoutView];
-    self.timeContainer.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.timeContainer];
-}
-
--(void) setupTimeContainerConstraints {
-    
-    if (!self.didSetupTimeContainerConstraints) {
-        
-        [NSLayoutConstraint autoCreateAndInstallConstraints:^{
-            [self.timeContainer autoCenterInSuperview];
-            [self.timeContainer autoSetDimensionsToSize:CGSizeMake(200, 200)];
-        }];
-        
-        self.didSetupTimeContainerConstraints = YES;
-    }
-}
-
 #pragma mark - stopwatchLabel
 
--(void) createStopwatchLabel {
+-(void) createStopwatchLabel { //for digital clock
     
     self.stopwatchLabel = [[UILabel alloc] init];
     self.stopwatchLabel.backgroundColor = [UIColor blackColor];
@@ -91,7 +68,100 @@
     
 }
 
-#pragma mark - timer
+#pragma mark - clockView 
+
+-(void) createClockView {
+    
+    self.clockView = [ClockView newAutoLayoutView];
+    [self.view addSubview:self.clockView];
+    
+    [self.clockView autoSetDimensionsToSize:CGSizeMake(300, 300)];
+    [self.clockView autoCenterInSuperview];
+    [self createClockViewLayers];
+    
+}
+
+-(void) createClockViewLayers {
+    
+    //create 1 o'clock and 2 o'clock ticks
+    
+    UIBezierPath *oneTwoPath = [UIBezierPath bezierPathWithArcCenter:self.view.center
+                                                              radius:123
+                                                          startAngle:DEGREES_TO_RADIANS(299)
+                                                            endAngle:DEGREES_TO_RADIANS(335)
+                                                           clockwise:YES];
+    
+    CAShapeLayer *oneTwoLayer = [CAShapeLayer layer];
+    [oneTwoLayer setPath: oneTwoPath.CGPath];
+    oneTwoLayer.anchorPoint = CGPointMake(0, 0);
+    [oneTwoLayer setStrokeColor:[UIColor grayColor].CGColor];
+    [oneTwoLayer setFillColor:[UIColor clearColor].CGColor];
+    oneTwoLayer.lineWidth = 15;
+    oneTwoLayer.lineDashPattern = @[@6, @58.5];
+    oneTwoLayer.strokeStart = 0.0;
+    oneTwoLayer.strokeEnd = 1.0;
+    
+    [self.view.layer addSublayer:oneTwoLayer];
+    
+    //3 & 4
+    
+    UIBezierPath *fourFivePath = [UIBezierPath bezierPathWithArcCenter:self.view.center
+                                                                radius:123
+                                                            startAngle:DEGREES_TO_RADIANS(29)
+                                                              endAngle:DEGREES_TO_RADIANS(75)
+                                                             clockwise:YES];
+    
+    CAShapeLayer *fourFiveLayer = [CAShapeLayer layer];
+    [fourFiveLayer setPath: fourFivePath.CGPath];
+    [fourFiveLayer setStrokeColor:[UIColor grayColor].CGColor];
+    [fourFiveLayer setFillColor:[UIColor clearColor].CGColor];
+    fourFiveLayer.lineWidth = 15;
+    fourFiveLayer.lineDashPattern = @[@6, @58.5];
+    fourFiveLayer.strokeStart = 0.0;
+    fourFiveLayer.strokeEnd = 1.0;
+    
+    [self.view.layer addSublayer:fourFiveLayer];
+    
+    //5 & 6
+    
+    UIBezierPath *sevenEightPath = [UIBezierPath bezierPathWithArcCenter:self.view.center
+                                                                  radius:123
+                                                              startAngle:DEGREES_TO_RADIANS(119)
+                                                                endAngle:DEGREES_TO_RADIANS(155)
+                                                               clockwise:YES];
+    
+    CAShapeLayer *sevenEightLayer = [CAShapeLayer layer];
+    [sevenEightLayer setPath: sevenEightPath.CGPath];
+    [sevenEightLayer setStrokeColor:[UIColor grayColor].CGColor];
+    [sevenEightLayer setFillColor:[UIColor clearColor].CGColor];
+    sevenEightLayer.lineWidth = 15;
+    sevenEightLayer.lineDashPattern = @[@6, @58.5];
+    sevenEightLayer.strokeStart = 0.0;
+    sevenEightLayer.strokeEnd = 1.0;
+    
+    [self.view.layer addSublayer:sevenEightLayer];
+    
+    //7 & 8
+    
+    UIBezierPath *tenElevenPath = [UIBezierPath bezierPathWithArcCenter:self.view.center
+                                                                 radius:123
+                                                             startAngle:DEGREES_TO_RADIANS(209)
+                                                               endAngle:DEGREES_TO_RADIANS(255)
+                                                              clockwise:YES];
+    
+    CAShapeLayer *tenElevenLayer = [CAShapeLayer layer];
+    [tenElevenLayer setPath: tenElevenPath.CGPath];
+    [tenElevenLayer setStrokeColor:[UIColor grayColor].CGColor];
+    [tenElevenLayer setFillColor:[UIColor clearColor].CGColor];
+    tenElevenLayer.lineWidth = 15;
+    tenElevenLayer.lineDashPattern = @[@6, @58.5];
+    tenElevenLayer.strokeStart = 0.0;
+    tenElevenLayer.strokeEnd = 1.0;
+    
+    [self.view.layer addSublayer:tenElevenLayer];
+}
+
+#pragma mark - stopwatch
 
 -(void) createStopwatch {
     
@@ -102,13 +172,27 @@
 
 -(void)updateTimeWithHours:(NSString *)hours minutes:(NSString *)minutes seconds:(NSString *)seconds {
     
+    //update stopwatchLabel
+    
     self.stopwatchLabel.text = [NSString stringWithFormat:@"%@:%@:%@", hours, minutes, seconds];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    //strings to ints
+    
+    NSInteger hoursInt = [hours integerValue];
+    NSInteger minutesInt = [minutes integerValue];
+    NSInteger secondsInt = [seconds integerValue];
+    
+    //convert hours from military time
+    
+    if (hoursInt > 12) {
+        hoursInt = hoursInt - 12;
+    }
+    
+    //update clockview
+    
+    self.clockView.secondHandLayer.affineTransform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(secondsInt * 6));
+    self.clockView.minuteHandLayer.affineTransform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(minutesInt * 8.6));
+    self.clockView.hourHandLayer.affineTransform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(hoursInt * 60));
 }
 
 
