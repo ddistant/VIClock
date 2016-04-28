@@ -10,6 +10,7 @@
 #import <PureLayout/PureLayout.h>
 #import "Stopwatch.h"
 #import "ClockView.h"
+#import <GLKit/GLKit.h>
 
 @interface ClockViewController : UIViewController
 

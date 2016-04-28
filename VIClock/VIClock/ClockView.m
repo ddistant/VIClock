@@ -20,7 +20,6 @@
     [self createWhiteView];
     [self createMiddleView];
     [self createLabels];
-//    [self createLayers];
     [self createHands];
     
 }
@@ -114,13 +113,6 @@
     
     [self.nineLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self.whiteView];
     [self.nineLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.whiteView withOffset:10];
-}
-
-#pragma mark - layers
-
--(void) createLayers {
-   
-    //this method should happen here, refactor
 }
 
 #pragma mark - clock hands

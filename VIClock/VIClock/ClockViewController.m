@@ -8,6 +8,7 @@
 
 #import "ClockViewController.h"
 
+
 #define DEGREES_TO_RADIANS(degrees)  ((M_PI * degrees)/ 180)
 
 @interface ClockViewController () <StopwatchDelegate>
@@ -176,6 +177,8 @@
     
     self.stopwatchLabel.text = [NSString stringWithFormat:@"%@:%@:%@", hours, minutes, seconds];
     
+    NSLog(@"%@:%@:%@", hours, minutes, seconds);
+    
     //strings to ints
     
     NSInteger hoursInt = [hours integerValue];
@@ -188,11 +191,17 @@
         hoursInt = hoursInt - 12;
     }
     
-    //update clockview
+    //get angles
     
-    self.clockView.secondHandLayer.affineTransform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(secondsInt * 6));
-    self.clockView.minuteHandLayer.affineTransform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(minutesInt * 8.6));
-    self.clockView.hourHandLayer.affineTransform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(hoursInt * 60));
+    double secondsAngle = GLKMathDegreesToRadians(secondsInt * 6);
+    double minutesAngle = GLKMathDegreesToRadians(minutesInt * 6 + 90);
+    double hoursAngle = GLKMathDegreesToRadians(hoursInt * 30 - 90);
+    
+    //update clockView
+    
+    self.clockView.secondHandLayer.affineTransform = CGAffineTransformMakeRotation(secondsAngle);
+    self.clockView.minuteHandLayer.affineTransform = CGAffineTransformMakeRotation(minutesAngle);
+    self.clockView.hourHandLayer.affineTransform = CGAffineTransformMakeRotation(hoursAngle);
 }
 
 
