@@ -18,6 +18,8 @@
 @property (nonatomic) Stopwatch *stopwatch; //keeps time
 @property (nonatomic) ClockView *clockView; //handles the UI
 
+@property (nonatomic) BOOL didSetupClockViewConstraints;
+
 
 @end
 
@@ -30,13 +32,13 @@
     [self createStopwatch];
     [self createClockView];
     [self createStopwatchLabel];
+    [self.stopwatch startTimer];
     
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     
-    [self setupStopwatchLabelConstraints];
-    [self.stopwatch startTimer];
+    
     
 }
 
@@ -91,6 +93,8 @@
     self.stopwatchLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.stopwatchLabel];
     
+    [self setupStopwatchLabelConstraints];
+    
 }
 
 -(void) setupStopwatchLabelConstraints {
@@ -115,10 +119,24 @@
     
     self.clockView = [ClockView newAutoLayoutView];
     [self.view addSubview:self.clockView];
-    
-    [self.clockView autoSetDimensionsToSize:CGSizeMake(300, 300)];
-    [self.clockView autoCenterInSuperview];
+
+    [self setupClockViewConstraints];
     [self createClockViewLayers];
+    
+}
+
+-(void) setupClockViewConstraints {
+    
+    if (!self.didSetupClockViewConstraints) {
+        
+        [NSLayoutConstraint autoCreateAndInstallConstraints:^{
+            [self.clockView autoSetDimensionsToSize:CGSizeMake(300, 300)];
+            [self.clockView autoCenterInSuperview];
+            
+        }];
+        
+        self.didSetupClockViewConstraints = YES;
+    }
     
 }
 
@@ -126,80 +144,31 @@
     
     //create 1 o'clock and 2 o'clock ticks
     
-    UIBezierPath *oneTwoPath = [UIBezierPath bezierPathWithArcCenter:self.view.center
-                                                              radius:123
-                                                          startAngle:DEGREES_TO_RADIANS(299)
-                                                            endAngle:DEGREES_TO_RADIANS(335)
-                                                           clockwise:YES];
+    [self createClockViewLayerWithStartAngle:299 endAngle:335];
+    [self createClockViewLayerWithStartAngle:29 endAngle:75]; //4 & 5
+    [self createClockViewLayerWithStartAngle:119 endAngle:155]; //7 & 8
+    [self createClockViewLayerWithStartAngle:209 endAngle:255]; //10 & 11
+
+}
+
+-(void) createClockViewLayerWithStartAngle:(NSInteger)startAngle endAngle:(NSInteger)endAngle {
     
-    CAShapeLayer *oneTwoLayer = [CAShapeLayer layer];
-    [oneTwoLayer setPath: oneTwoPath.CGPath];
-    oneTwoLayer.anchorPoint = CGPointMake(0, 0);
-    [oneTwoLayer setStrokeColor:[UIColor grayColor].CGColor];
-    [oneTwoLayer setFillColor:[UIColor clearColor].CGColor];
-    oneTwoLayer.lineWidth = 15;
-    oneTwoLayer.lineDashPattern = @[@6, @58.5];
-    oneTwoLayer.strokeStart = 0.0;
-    oneTwoLayer.strokeEnd = 1.0;
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:self.view.center
+                                                        radius:123
+                                                    startAngle:DEGREES_TO_RADIANS(startAngle)
+                                                      endAngle:DEGREES_TO_RADIANS(endAngle)
+                                                     clockwise:YES];
     
-    [self.view.layer addSublayer:oneTwoLayer];
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    [layer setPath: path.CGPath];
+    [layer setStrokeColor:[UIColor grayColor].CGColor];
+    [layer setFillColor:[UIColor clearColor].CGColor];
+    layer.lineWidth = 15;
+    layer.lineDashPattern = @[@6, @58.5];
+    layer.strokeStart = 0.0;
+    layer.strokeEnd = 1.0;
     
-    //3 & 4
-    
-    UIBezierPath *fourFivePath = [UIBezierPath bezierPathWithArcCenter:self.view.center
-                                                                radius:123
-                                                            startAngle:DEGREES_TO_RADIANS(29)
-                                                              endAngle:DEGREES_TO_RADIANS(75)
-                                                             clockwise:YES];
-    
-    CAShapeLayer *fourFiveLayer = [CAShapeLayer layer];
-    [fourFiveLayer setPath: fourFivePath.CGPath];
-    [fourFiveLayer setStrokeColor:[UIColor grayColor].CGColor];
-    [fourFiveLayer setFillColor:[UIColor clearColor].CGColor];
-    fourFiveLayer.lineWidth = 15;
-    fourFiveLayer.lineDashPattern = @[@6, @58.5];
-    fourFiveLayer.strokeStart = 0.0;
-    fourFiveLayer.strokeEnd = 1.0;
-    
-    [self.view.layer addSublayer:fourFiveLayer];
-    
-    //5 & 6
-    
-    UIBezierPath *sevenEightPath = [UIBezierPath bezierPathWithArcCenter:self.view.center
-                                                                  radius:123
-                                                              startAngle:DEGREES_TO_RADIANS(119)
-                                                                endAngle:DEGREES_TO_RADIANS(155)
-                                                               clockwise:YES];
-    
-    CAShapeLayer *sevenEightLayer = [CAShapeLayer layer];
-    [sevenEightLayer setPath: sevenEightPath.CGPath];
-    [sevenEightLayer setStrokeColor:[UIColor grayColor].CGColor];
-    [sevenEightLayer setFillColor:[UIColor clearColor].CGColor];
-    sevenEightLayer.lineWidth = 15;
-    sevenEightLayer.lineDashPattern = @[@6, @58.5];
-    sevenEightLayer.strokeStart = 0.0;
-    sevenEightLayer.strokeEnd = 1.0;
-    
-    [self.view.layer addSublayer:sevenEightLayer];
-    
-    //7 & 8
-    
-    UIBezierPath *tenElevenPath = [UIBezierPath bezierPathWithArcCenter:self.view.center
-                                                                 radius:123
-                                                             startAngle:DEGREES_TO_RADIANS(209)
-                                                               endAngle:DEGREES_TO_RADIANS(255)
-                                                              clockwise:YES];
-    
-    CAShapeLayer *tenElevenLayer = [CAShapeLayer layer];
-    [tenElevenLayer setPath: tenElevenPath.CGPath];
-    [tenElevenLayer setStrokeColor:[UIColor grayColor].CGColor];
-    [tenElevenLayer setFillColor:[UIColor clearColor].CGColor];
-    tenElevenLayer.lineWidth = 15;
-    tenElevenLayer.lineDashPattern = @[@6, @58.5];
-    tenElevenLayer.strokeStart = 0.0;
-    tenElevenLayer.strokeEnd = 1.0;
-    
-    [self.view.layer addSublayer:tenElevenLayer];
+    [self.view.layer addSublayer:layer];
 }
 
 
