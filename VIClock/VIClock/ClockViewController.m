@@ -36,12 +36,6 @@
     
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    
-    
-    
-}
-
 #pragma mark - stopwatch
 
 -(void) createStopwatch {
@@ -73,7 +67,8 @@
     
     double secondsAngle = GLKMathDegreesToRadians(secondsInt * 6);
     double minutesAngle = GLKMathDegreesToRadians(minutesInt * 6 + 90);
-    double hoursAngle = GLKMathDegreesToRadians(hoursInt * 30 - 90);
+//    double hoursExtensionAngle = GLKMathDegreesToRadians((minutesInt * 6 / 12)); //hour hand moves by the minute
+    double hoursAngle = GLKMathDegreesToRadians(hoursInt * 30 - 90 + (minutesInt * 6 / 12));
     
     //update clockView
     
