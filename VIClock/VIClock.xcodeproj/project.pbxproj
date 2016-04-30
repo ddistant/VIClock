@@ -18,6 +18,7 @@
 		22A735471CCB123D00DA36E5 /* Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A735461CCB123D00DA36E5 /* Stopwatch.m */; };
 		22A7354C1CCDB9E200DA36E5 /* ClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A7354B1CCDB9E200DA36E5 /* ClockView.m */; };
 		22A735521CD25C4300DA36E5 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A735511CD25C4300DA36E5 /* GLKit.framework */; };
+		22A735571CD42FCE00DA36E5 /* StopwatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A735561CD42FCE00DA36E5 /* StopwatchTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		22A7354B1CCDB9E200DA36E5 /* ClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockView.m; sourceTree = "<group>"; };
 		22A7354F1CD1636C00DA36E5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		22A735511CD25C4300DA36E5 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		22A735561CD42FCE00DA36E5 /* StopwatchTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopwatchTests.m; sourceTree = "<group>"; };
 		8E21B344D7C72288A985CFBE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FFA479A418F8E370949D8EA2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				22A735371CCAF4BD00DA36E5 /* VIClockTests.m */,
+				22A735561CD42FCE00DA36E5 /* StopwatchTests.m */,
 				22A735391CCAF4BD00DA36E5 /* Info.plist */,
 			);
 			path = VIClockTests;
@@ -301,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22A735381CCAF4BD00DA36E5 /* VIClockTests.m in Sources */,
+				22A735571CD42FCE00DA36E5 /* StopwatchTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

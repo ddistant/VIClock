@@ -39,6 +39,7 @@
     if (self.timerDoesExist) {
         [self.timer invalidate];
         
+        self.timer = nil;
         self.timerDoesExist = NO;
     }
 }
