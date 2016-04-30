@@ -9,10 +9,9 @@
 #import <XCTest/XCTest.h>
 #import "Stopwatch.h"
 
-@interface StopwatchTests : XCTestCase <StopwatchDelegate>
+@interface StopwatchTests : XCTestCase
 
 @property (nonatomic) Stopwatch *stopwatchToTest;
-@property (nonatomic) BOOL stopwatchDelegateInvoked;
 
 @end
 
@@ -22,20 +21,7 @@
     [super setUp];
     
     self.stopwatchToTest = [[Stopwatch alloc] init];
-    self.stopwatchToTest.delegate = self;
     [self.stopwatchToTest startTimer];
-}
-
--(void)updateTimeWithHours:(NSString *)hours minutes:(NSString *)minutes seconds:(NSString *)seconds {
-    
-    self.stopwatchDelegateInvoked = YES;
-}
-
--(void) testDelegate {
-    
-    XCTAssertNotNil(self.stopwatchToTest.delegate, @"delegate must be assigned");
-    [self.stopwatchToTest.delegate updateTimeWithHours:@"" minutes:@"" seconds:@""];
-    XCTAssertTrue(self.stopwatchDelegateInvoked, @"Delegate should call -updateTimeWithHours:");
 }
 
 
@@ -62,8 +48,6 @@
 }
 
 - (void)tearDown {
-    
-    self.stopwatchToTest.delegate = nil;
     
     [super tearDown];
 }
